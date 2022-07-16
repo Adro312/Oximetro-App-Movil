@@ -11,4 +11,4 @@ Se utilizó el framework de Ionic con Angular 6.0.0+
 # Notas
 Para que funcione, se necesita tener descargado otros repositorios:
 * Oximetro API => https://github.com/Adro312/Oximetro-API
-* Oximetro ESP32 => 
+* Oximetro ESP32 => https://github.com/Adro312/Oximetro-ESP32
