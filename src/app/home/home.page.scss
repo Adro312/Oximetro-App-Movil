@@ -1,11 +1,8 @@
 #container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #container strong {
@@ -24,4 +21,170 @@
 
 #container a {
   text-decoration: none;
+}
+
+.topContainer {
+  background: linear-gradient(145deg, rgba(0,172,200,0.8) 0%, rgba(149,214,0,0.6) 100%);
+  height: 45vh;
+  width: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  flex-direction: column;
+  box-shadow: 0 4px 25px rgb(0, 0, 0, 0.2);
+  // filter: blur(40px);
+  // z-index: -1000;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.iconHeader {
+  font-size: 50px;
+  margin: 10px;
+  display: flex;
+  justify-content: start;
+  color: #fff;
+}
+
+.bienvenida {
+  font-weight: bold;
+  color: #fff;
+
+}
+
+.startButton {
+  font-size: 175px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+
+}
+
+.stateSensors {
+  color: rgb(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.middleContainer {
+  // background-color: green;
+  height: 45vh;
+  width: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.lastExams {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  // background-color: lightgreen;
+  // align-items: flex-start;
+  margin-top: 10px;
+  width: 70%;
+}
+
+.headerExam {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ultimosExamenes {
+  font-weight: bold;
+  color: rgb(0, 0, 0, 0.7);
+
+}
+
+.iconHeaderExam {
+  font-size: 20px;
+  color: rgb(0, 0, 0, 0.7);
+}
+
+.exam {
+  background: linear-gradient(145deg, rgba(0,172,200, 1) 0%, rgba(149,214,0,0.5) 100%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 25px -1px rgb(0, 0, 0, 0.2);
+
+}
+
+.fecha {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.datos {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.detalles {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+
+}
+
+.tabContainer {
+  // background-color: blue;
+  height: 8vh;
+  width: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgb(71, 96, 115, 0.3);
+
+}
+
+.iconsTab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.iconTab {
+  margin: 50px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // color: #fff;
+}
+
+#iconHome {
+  width: 50px;
+  height: 50px;
+  // border: 1px solid white;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(0,172,200, 1) 0%, rgba(149,214,0,0.5) 100%);
+  color: #fff;
+  box-shadow: 0 4px 25px -1px rgb(0, 0, 0, 0.2);
+
+}
+
+#iconStats {
+  color: #476073;
+
+}
+
+#iconSettings {
+  color: #476073;
 }
