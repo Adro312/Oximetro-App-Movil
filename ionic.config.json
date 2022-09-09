@@ -1,5 +1,8 @@
 {
-  "name": "Oximetro-App-Movil",
-  "integrations": {},
+  "name": "sw17_contenedores",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }

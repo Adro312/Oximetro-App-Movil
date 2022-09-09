@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Resultados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list inset="true" *ngFor="let res of resultados">
+    <ion-item>
+      <ion-label>
+        <h1>{{res.fecha_hora_registro}}</h1>
+        <h2 style="color: orange;">Temperatura: {{res.dht11_temperatura}}</h2>
+        <h2 style="color: cadetblue;">Humedad: {{res.dht11_humedad}}</h2>
+      </ion-label>
+    </ion-item>
+    <br>
+  </ion-list>
+</ion-content>

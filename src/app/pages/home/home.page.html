@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class="home" id="BotonComenzar">
+    <h1>Iniciar</h1>
+    <br />
+    <button (click)="comenzar()">
+      <ion-icon
+        name="play-outline"
+        style="font-size: 100px; color: whitesmoke; margin-left: 15px"
+      ></ion-icon>
+    </button>
+  </section>
+
+  <section id="MuestraResultados"  style="display: none;">
+    <h1>Registro terminado</h1>
+    <ion-list inset="true">
+      <ion-item *ngFor="let res of resultados">
+        <ion-label>
+          <h2>{{res.fecha_hora_registro}}</h2>
+          <h2 style="color: orange">Temperatura: {{res.dht11_temperatura}}</h2>
+          <h2 style="color: cadetblue">Humedad: {{res.dht11_humedad}}</h2>
+          <h2 *ngIf="res.dht11_temperatura >= 36 && res.dht11_temperatura < 38" style="color: greenyellow;">Su temperatura es buena</h2>
+          <h2 *ngIf="res.dht11_temperatura >= 38" style="color: red;">Su temperatura es mala</h2>
+          <h2 *ngIf="res.dht11_temperatura < 36" style="color: darkcyan;">Su temperatura esta muy baja</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" style="width: 92%; margin-left: auto; margin-right: auto;" (click)="finalizar()">Finalizar</ion-button>
+  </section>
+</ion-content>
