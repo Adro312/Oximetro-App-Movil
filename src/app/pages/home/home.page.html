@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Home</ion-title>
   </ion-toolbar>
@@ -32,4 +32,93 @@
     </ion-list>
     <ion-button expand="block" style="width: 92%; margin-left: auto; margin-right: auto;" (click)="finalizar()">Finalizar</ion-button>
   </section>
+</ion-content> -->
+
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div id="container">
+    
+    <div class="topContainer">
+      <div class="header">
+        <div class="iconHeader">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </div>
+        <span class="bienvenida">Hola Usuario</span>
+      </div>
+      <div class="startButton">
+        <ion-icon name="play-circle-outline"></ion-icon>
+      </div>
+      <h6 class="stateSensors">¡Sensores Listos!</h6>
+    </div>
+
+    <div class="middleContainer">
+      <div class="lastExams">
+        <div class="headerExam">
+          <h5 class="ultimosExamenes">Ultimos Examenes</h5>
+          <div class="iconHeaderExam">
+            <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="exam">
+          <div class="examText">
+            <div class="fecha">
+              Martes 15 de Agosto
+            </div>
+            <div class="datos">
+              Niveles de Oxigeno al 100%
+            </div>
+          </div>
+          <div class="detalles">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+        </div>
+
+        <div class="exam">
+          <div class="examText">
+            <div class="fecha">
+              Jueves 8 de Septiembre
+            </div>
+            <div class="datos">
+              Temperatura 35° C
+            </div>
+          </div>
+          <div class="detalles">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="tabContainer">
+      <div class="iconsTab">
+        <div class="iconTab" id="iconStats">
+          <ion-icon name="stats-chart-outline"></ion-icon>
+        </div>
+        
+        <div class="iconTab" id="iconHome">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        
+        <div class="iconTab" id="iconSettings">
+          <ion-icon name="settings-outline"></ion-icon>
+        </div>
+      </div>
+
+    </div> -->
+
+  </div>
 </ion-content>
+
