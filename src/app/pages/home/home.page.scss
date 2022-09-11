@@ -52,13 +52,13 @@ button {
 
 .topContainer {
   background: linear-gradient(145deg, rgba(0, 172, 200, 0.8) 0%, rgba(149, 214, 0, 0.6) 100%);
-  height: 50%;
+  height: 47vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom-left-radius: 60px;
-  border-bottom-right-radius: 60px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   flex-direction: column;
   box-shadow: 0 4px 25px rgb(0, 0, 0, 0.2);
   // filter: blur(40px);
@@ -142,9 +142,9 @@ button {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 80px;
+  height: 90px;
   border-radius: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   box-shadow: 0 4px 25px -1px rgb(0, 0, 0, 0.2);
 
 }
