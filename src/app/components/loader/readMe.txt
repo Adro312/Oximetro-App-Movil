@@ -17,14 +17,14 @@ las etiquetas que forman los elementos principales, algunos de ellos son:
   -Logo
   -Algun consejo o dato importante
 
-Por ahora esos son los unicos elementos, en cualquier momento pues agregar
+Por ahora esos son los unicos elementos, en cualquier momento puedes agregar
 otro, en un momento te enseño como.
 
 En el archivo loader.component.scss se escriben los estilos del html,
 falta pulir algunos elementos pero funciona, se aceptan cambios si logras
 reducir el número de lineas sin afectar el estilo definido.
 
-En el archuvo loade.component.ts esta la magia jaja, aquí solo tienes que
+En el archuvo loader.component.ts esta la magia jaja, aquí solo tienes que
 declarar las variables que tienes en el html.  Fijate que en cada sección
 del html hay un "*ngIf" con un nombre específico, depende del valor que reciba
 si se mostrara en la pantalla o no. Ese nombre se declara en el "ts" como:
@@ -57,6 +57,7 @@ del constructor:
   showSplash = false;
   message = '';
   tip = '';
+  isLogo = false;
 
 Inicializamos las variables en "false" o "vacias" para despues ya poder
 utilizaralas en cualquir función:
