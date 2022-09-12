@@ -1,5 +1,9 @@
 <ion-content [fullscreen]="true">
+
+  <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
+  
   <div id="container">
+
     
     <div class="topContainer">
       <div class="header">
@@ -8,7 +12,7 @@
         </div>
         <span class="bienvenida">Hola Usuario</span>
       </div>
-      <div class="startButton">
+      <div class="startButton" (click)="comenzar();">
         <ion-icon name="play-circle-outline"></ion-icon>
       </div>
       <h6 class="stateSensors">¡Sensores Listos!</h6>
