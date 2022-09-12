@@ -18,6 +18,9 @@ export class HomePage implements OnInit {
   message = '';
   tip = '';
 
+  //Mensaje para el estado de los sensores
+  stateSensors = 'Pon tu mensaje aqui';
+
   constructor(
     private restService: RestService,
     private loadingCtrl: LoadingController,
@@ -41,6 +44,7 @@ export class HomePage implements OnInit {
     this.showSplash = true;
     this.message = 'Analizando...';
     this.tip = 'Manten la calma y respira profundamente :)';
+    $('#container').hide();
 
     $('#BotonComenzar').attr('disabled', true);
 
@@ -56,6 +60,7 @@ export class HomePage implements OnInit {
               // loading.dismiss();
 
               this.showSplash = false;
+              $('#container').show();
 
               this.restService.mostrar_toast(
                 'Analisis completo!!',
@@ -72,6 +77,7 @@ export class HomePage implements OnInit {
               // loading.dismiss();
 
               this.showSplash = false;
+              $('#container').show();
 
               console.log(error);
               this.restService.mostrar_toast(
@@ -88,6 +94,7 @@ export class HomePage implements OnInit {
           // loading.dismiss();
 
           this.showSplash = false;
+          $('#container').show();
 
           this.restService.mostrar_toast(
             'Error',
@@ -102,6 +109,7 @@ export class HomePage implements OnInit {
         // loading.dismiss();
 
         this.showSplash = false;
+        $('#container').show();
 
         console.log(error);
         this.restService.mostrar_toast(

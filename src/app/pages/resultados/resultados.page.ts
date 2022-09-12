@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../services/rest.service';
 import { LoadingController } from '@ionic/angular';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-resultados',
@@ -30,14 +31,11 @@ export class ResultadosPage implements OnInit {
   }
 
   async cargarDatos() {
-    // const loading = await this.loadingCtrl.create({
-    //   message: 'Cargando...',
-    // });
-    // await loading.present();
 
     this.showSplash = true;
     this.message = 'Cargando Datos...';
     this.tip = 'Sabias que la velocidad más alta registrada para un estornudo es de 165 km/h ?';
+    $('#container').hide();
 
     this.restService.ejecutar_get('API/getAllData', {}).
     subscribe( resultado => {
@@ -45,12 +43,14 @@ export class ResultadosPage implements OnInit {
       // loading.dismiss();
 
       this.showSplash = false;
+      $('#container').show();
 
       console.log(resultado);
     }, error => {
       // loading.dismiss();
 
       this.showSplash = false;
+      $('#container').show();
 
       console.log(error);
     });
