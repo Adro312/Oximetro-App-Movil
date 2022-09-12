@@ -1,10 +1,15 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Resultados</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
+
+  <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
+
+  <h1>Resultados</h1>
+
   <ion-list inset="true" *ngFor="let res of resultados">
     <ion-item>
       <ion-label>

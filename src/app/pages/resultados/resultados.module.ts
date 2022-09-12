@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ResultadosPageRoutingModule } from './resultados-routing.module';
 
 import { ResultadosPage } from './resultados.page';
+import { LoaderModule } from 'src/app/components/loader/loader.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ResultadosPageRoutingModule
+    ResultadosPageRoutingModule,
+    LoaderModule
   ],
   declarations: [ResultadosPage]
 })

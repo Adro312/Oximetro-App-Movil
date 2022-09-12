@@ -14,6 +14,7 @@ import { ServiceInterceptor } from './services/interceptors/service.interceptor'
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { LoaderModule } from './components/loader/loader.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    LoaderModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

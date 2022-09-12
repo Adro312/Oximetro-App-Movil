@@ -13,11 +13,16 @@ import * as $ from 'jquery';
 export class HomePage implements OnInit {
   resultados = [];
 
+  //Parametros del loading
+  showSplash = false;
+  message = '';
+  tip = '';
+
   constructor(
     private restService: RestService,
     private loadingCtrl: LoadingController,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {}
@@ -32,10 +37,10 @@ export class HomePage implements OnInit {
   }
 
   async comenzar() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Analizando...',
-    });
-    await loading.present();
+
+    this.showSplash = true;
+    this.message = 'Analizando...';
+    this.tip = 'Manten la calma y respira profundamente :)';
 
     $('#BotonComenzar').attr('disabled', true);
 
@@ -46,9 +51,12 @@ export class HomePage implements OnInit {
           await this.delay(10000);
           console.log('Listo');
           this.restService.ejecutar_get('API/getRegister', {}).subscribe(
-            (resultadolastId) => {
+            async (resultadolastId) => {
               this.resultados = resultadolastId;
-              loading.dismiss();
+              // loading.dismiss();
+
+              this.showSplash = false;
+
               this.restService.mostrar_toast(
                 'Analisis completo!!',
                 'success',
@@ -60,8 +68,11 @@ export class HomePage implements OnInit {
               $('#MuestraResultados').show();
               $('#BotonComenzar').hide();
             },
-            (error) => {
-              loading.dismiss();
+            async (error) => {
+              // loading.dismiss();
+
+              this.showSplash = false;
+
               console.log(error);
               this.restService.mostrar_toast(
                 'Error',
@@ -74,7 +85,10 @@ export class HomePage implements OnInit {
           );
         } else {
           $('#BotonComenzar').attr('disabled', false);
-          loading.dismiss();
+          // loading.dismiss();
+
+          this.showSplash = false;
+
           this.restService.mostrar_toast(
             'Error',
             'danger',
@@ -84,8 +98,11 @@ export class HomePage implements OnInit {
           );
         }
       },
-      (error) => {
-        loading.dismiss();
+      async (error) => {
+        // loading.dismiss();
+
+        this.showSplash = false;
+
         console.log(error);
         this.restService.mostrar_toast(
           'Error',

@@ -1,0 +1,24 @@
+
+<div *ngIf="isLoader" class="section">
+  <div class="nameApp">
+    <span class="oxi">Oxi </span>
+    <div class="careContent">
+      <span class="care"> Care</span>
+    </div>
+  </div>
+  <div class="spinner">
+    <div class="upper ball"></div>
+    <div class="right ball"></div>
+    <div class="lower ball"></div>
+    <div class="left ball"></div>
+  </div>
+  <div>
+    <span *ngIf="message" class="message">{{ message }}</span>
+  </div>
+
+  <div *ngIf="tip" class="tipContent"><span class="tip">{{ tip }}</span></div>
+
+  <div *ngIf="isLogo" class="logo">
+    <img src="../../../assets/img/logo_deinev.png" alt="">
+  </div>
+</div>
