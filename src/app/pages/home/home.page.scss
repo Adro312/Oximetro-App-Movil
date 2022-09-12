@@ -61,8 +61,6 @@ button {
   border-bottom-right-radius: 20px;
   flex-direction: column;
   box-shadow: 0 4px 25px rgb(0, 0, 0, 0.2);
-  // filter: blur(40px);
-  // z-index: -1000;
 }
 
 .header {
@@ -82,7 +80,7 @@ button {
 .bienvenida {
   font-weight: bold;
   color: #fff;
-  font-size: 44px;
+  font-size: 2rem;
 }
 
 .startButton {
