@@ -1,11 +1,51 @@
 
-<ion-content>
+<ion-content class="bg">
 
   <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
 
   <div id="container">
-    <h1>Resultados</h1>
-    <ion-list inset="true" *ngFor="let res of resultados">
+    <div class="header">
+      <div class="backIcon">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+      <div class="infoIcon">
+        <ion-icon name="help-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="iconHeader">
+      <ion-icon name="person-outline"></ion-icon>
+    </div>
+    <div class="cardContainer">
+      <div class="dataContainer">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="data">
+          <span class="value">97%</span>
+          <span class="name">Sp02</span>
+        </div>
+      </div>
+      <div class="dataContainer">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="data">
+          <span class="value">97%</span>
+          <span class="name">Sp02</span>
+        </div>
+      </div>
+      <div class="dataContainer">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="data">
+          <span class="value">97%</span>
+          <span class="name">Sp02</span>
+        </div>
+      </div>
+      <div class="dataContainer">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="data">
+          <span class="value">97%</span>
+          <span class="name">Sp02</span>
+        </div>
+      </div>
+    </div>
+    <!-- <ion-list inset="true" *ngFor="let res of resultados">
       <ion-item>
         <ion-label>
           <h1>{{res.fecha_hora_registro}}</h1>
@@ -14,6 +54,6 @@
         </ion-label>
       </ion-item>
       <br>
-    </ion-list>
+    </ion-list> -->
   </div>
 </ion-content>
