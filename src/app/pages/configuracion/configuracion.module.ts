@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ConfiguracionPageRoutingModule } from './configuracion-routing.module';
 
 import { ConfiguracionPage } from './configuracion.page';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConfiguracionPageRoutingModule
+    ConfiguracionPageRoutingModule,
+    NgApexchartsModule,
   ],
   declarations: [ConfiguracionPage]
 })

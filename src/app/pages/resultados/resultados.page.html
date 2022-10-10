@@ -1,11 +1,72 @@
+<ion-header id="header1">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="aperture-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="help-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Configuracion</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content>
-
+<ion-content class="bg">
   <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
 
+
   <div id="container">
-    <h1>Resultados</h1>
-    <ion-list inset="true" *ngFor="let res of resultados">
+    <div class="iconHeader">
+      <ion-icon name="sad-outline"></ion-icon>
+      <!-- <ion-icon name="happy-outline"></ion-icon> -->
+    </div>
+    <!-- <div class="cardContainer" *ngFor="let res of resultados"> -->
+    <div class="cardContainer">
+      <div class="resultsContainer">
+        <span class="results">Datos</span>
+      </div>
+      <div class="dataContainer">
+        <div class="data">
+          <span class="value">97%</span>
+          <!-- <span class="value">{{res.dht11_humedad}}</span> -->
+          <span class="name">Sp02</span>
+          <div>
+            <ion-icon (click)="infoSp02();" name="information-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="dataContainer">
+        <div class="data">
+          <span class="value">80</span>
+          <!-- <span class="value">{{res.dht11_temperatura}}</span> -->
+          <span class="name">BPM</span>
+          <div>
+            <ion-icon (click)="infoBPM();" name="information-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="dataContainer">
+        <div class="data">
+          <span class="value">35°</span>
+          <!-- <span class="value">{{res.dht11_temperatura}}</span> -->
+          <span class="name">Temperatura</span>
+          <div>
+            <ion-icon (click)="infoTemp();" name="information-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="dataContainer">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="data">
+          <span class="value">10</span>
+          <span class="name">Otro</span>
+        </div>
+      </div> -->
+    </div>
+    <!-- <ion-list inset="true" *ngFor="let res of resultados">
       <ion-item>
         <ion-label>
           <h1>{{res.fecha_hora_registro}}</h1>
@@ -14,6 +75,9 @@
         </ion-label>
       </ion-item>
       <br>
-    </ion-list>
+    </ion-list> -->
+    <div (click)="terminar();" class="finishContainer">
+      <span class="finish">Terminar</span>
+    </div>
   </div>
 </ion-content>
