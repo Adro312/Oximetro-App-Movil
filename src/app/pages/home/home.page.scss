@@ -1,4 +1,6 @@
-
+ion-content {
+  --background: #fff;
+}
 
 .home {
   width: 50%;
@@ -30,6 +32,7 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  // background-color: #fff;
 }
 
 #container strong {
