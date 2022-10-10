@@ -119,7 +119,8 @@ export class HomePage implements OnInit {
           'top',
           4000
         );
-      }
+      },
     );
+    this.router.navigate(['resultados']);
   }
 }

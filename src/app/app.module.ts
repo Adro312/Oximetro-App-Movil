@@ -15,6 +15,7 @@ import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { LoaderModule } from './components/loader/loader.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { LoaderModule } from './components/loader/loader.module';
       multi: true
     },
     BarcodeScanner,
-    Geolocation
+    Geolocation,
+    NgChartsModule
   ],
   bootstrap: [AppComponent],
 })

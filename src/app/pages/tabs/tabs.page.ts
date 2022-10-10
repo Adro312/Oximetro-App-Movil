@@ -7,13 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
+  // showSplash = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  goToResultados() {
-    console.log('goToResultados');
+  goToGraficas() {
+    // this.showSplash = true;
+
+    console.log('goToGraficas');
   }
 
 }
