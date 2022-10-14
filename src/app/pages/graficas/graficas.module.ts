@@ -8,12 +8,15 @@ import { GraficasPageRoutingModule } from './graficas-routing.module';
 
 import { GraficasPage } from './graficas.page';
 
+import { LoaderModule } from 'src/app/components/loader/loader.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GraficasPageRoutingModule
+    GraficasPageRoutingModule,
+    LoaderModule
   ],
   declarations: [GraficasPage]
 })

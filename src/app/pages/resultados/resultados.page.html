@@ -1,12 +1,12 @@
 <ion-header id="header1">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="screenShoot();">
         <ion-icon name="aperture-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="help();">
         <ion-icon name="help-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -58,13 +58,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="dataContainer">
-        <ion-icon name="information-circle-outline"></ion-icon>
-        <div class="data">
-          <span class="value">10</span>
-          <span class="name">Otro</span>
-        </div>
-      </div> -->
     </div>
     <!-- <ion-list inset="true" *ngFor="let res of resultados">
       <ion-item>

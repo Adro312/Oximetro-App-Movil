@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { getRelativePosition } from 'chart.js/helpers';
+import Swal from 'sweetalert2';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-graficas',
@@ -9,98 +10,259 @@ import { getRelativePosition } from 'chart.js/helpers';
 })
 export class GraficasPage implements OnInit {
 
-  @ViewChild('barCanvas') public barCanvas: ElementRef;
-  barChart: any;
+  @ViewChild('barTemp') public barTemp: ElementRef;
+  @ViewChild('barOxi') public barOxi: ElementRef;
+  @ViewChild('barBpm') public barBpm: ElementRef;
+  barChartTemp: any;
+  barChartOxi: any;
+  barChartBpm: any;
+  myChart: any;
+
+  showSplash = false;
+  message = '';
+  tip = '';
 
   constructor() { }
 
   ngOnInit() {
-
+    $('#GraficaTemp').hide();
+    $('#GraficaOxi').hide();
+    $('#GraficaBpm').hide();
   }
 
   ionViewWillEnter() {
-    this.graficaBarras();
+    // Aqui se mostrara el loader y se ocultara provisionalmente hasta que se haga la peticion a la base de datos
+    this.showSplash = true;
+    this.message = 'Cargando gráficas...';
+    this.tip = 'El hueso más pequeño es el estribo, situado en el oído medio. Es un poco más grande que un grano de arroz.';
+    $('#container').hide();
+    $('#header').hide();
+
+    // Despues de 5 segundos el loader se ocultara
+    setTimeout(() => {
+      this.showSplash = false;
+      $('#container').show();
+      $('#header').show();
+    }, 5000);
+
+    this.showTemp();
+
   }
 
-  barChartMethod() {
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: 'line',
-      // data: {
-      //   labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
-      //   datasets: [{
-      //     barPercentage: 0.8,
-      //     barThickness: 'flex',
-      //     label: 'Temperatura',
-      //     stack: 'Base',
-      //     backgroundColor: '#00ACC8',
-      //     data: [36, 35, 32, 37, 38, 39, 40],
-      //   },
-        // {
-          // barPercentage: 0.8,
-          // barThickness: 'flex',
-          // label: 'Type 2',
-          // stack: 'Sensitivity',
-          // backgroundColor: '#2a93ce',
-          // data: [5, 20,38,20,30],
-        // }
-      // ]
-      // },
+  graficaTemperatura() {
+    const canvas = document.getElementById('barTemp');
+    const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+    if (this.myChart) {
+      this.myChart.destroy();
+    }
+    this.myChart = new Chart(ctx, {
+      type: 'bar',
       data: {
-        // labels: ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'],
         labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
         datasets: [{
-          label: 'Temperatura',
-          data: [0, 36, 35, 32, 37, 38, 39, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
+          label: '',
+          data: [30, 36, 35, 31, 37, 33, 32],
+          backgroundColor: [
+            'rgb(0, 172, 200, 0.2)',
+            'rgb(149, 214, 0, 0.2)',
+            'rgb(179, 79, 197, 0.2)',
+            'rgb(255, 131, 0, 0.2)',
+            'rgb(71, 96, 115, 0.2)',
+            'rgb(189, 187, 188, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+            '#00ACC8',
+            '#95D600',
+            '#B34FC5',
+            '#FF8300',
+            '#476073',
+            '#BDBBBC',
+            '#ff6384',
+          ],
+          borderWidth: 1
         }]
       },
       options: {
         scales: {
           y: {
-              beginAtZero: true
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Temperatura',
+            font: {
+              size: 20,
+              weight: 'bold'
+            }
+          },
+          legend: {
+            display: false
           }
         }
       }
     });
   }
 
-  graficaBarras() {
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
+  graficaOxigeno() {
+    const canvas = document.getElementById('barOxi');
+    const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+    if (this.myChart) {
+      this.myChart.destroy();
+    }
+      this.myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
+          datasets: [{
+            label: '',
+          data: [100, 92, 94, 95, 93, 91, 98],
+            backgroundColor: [
+              'rgb(0, 172, 200, 0.2)',
+              'rgb(149, 214, 0, 0.2)',
+              'rgb(179, 79, 197, 0.2)',
+              'rgb(255, 131, 0, 0.2)',
+              'rgb(71, 96, 115, 0.2)',
+              'rgb(189, 187, 188, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+              '#00ACC8',
+              '#95D600',
+              '#B34FC5',
+              '#FF8300',
+              '#476073',
+              '#BDBBBC',
+              '#ff6384',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Nivel de Oxígeno',
+              font: {
+                size: 20,
+                weight: 'bold'
+              }
+            },
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+  }
+
+  graficaBpm() {
+    const canvas = document.getElementById('barBpm');
+    const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+    if (this.myChart) {
+      this.myChart.destroy();
+    }
+    this.myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
+        labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
+        datasets: [{
+          label: '',
+          data: [70, 84, 92, 60, 110, 79, 100],
+          backgroundColor: [
+            'rgb(0, 172, 200, 0.2)',
+            'rgb(149, 214, 0, 0.2)',
+            'rgb(179, 79, 197, 0.2)',
+            'rgb(255, 131, 0, 0.2)',
+            'rgb(71, 96, 115, 0.2)',
+            'rgb(189, 187, 188, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+            '#00ACC8',
+            '#95D600',
+            '#B34FC5',
+            '#FF8300',
+            '#476073',
+            '#BDBBBC',
+            '#ff6384',
+          ],
+          borderWidth: 1
+        }]
       },
       options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
+        scales: {
+          y: {
+            beginAtZero: true
           }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Ritmo Cardiaco',
+            font: {
+              size: 20,
+              weight: 'bold'
+            }
+          },
+          legend: {
+            display: false
+          }
+        }
       }
     });
+  }
+
+  help() {
+    Swal.fire({
+      title: 'Información',
+      text: `
+        En esta sección se muestran las gráficas 
+        de los datos obtenidos de los sensores.
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  screenShoot() {
+    Swal.fire({
+      title: 'Screenshot',
+      text: `
+        Boton para tomar ss, favor de buscar
+        una libreria que lo haga :).
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  showTemp() {
+    $('#GraficaTemp').show();
+    $('#GraficaOxi').hide();
+    $('#GraficaBpm').hide();
+    this.graficaTemperatura();
+  }
+  showOxigen() {
+    $('#GraficaTemp').hide();
+    $('#GraficaOxi').show();
+    $('#GraficaBpm').hide();
+    this.graficaOxigeno();
+  }
+  showBpm() {
+    $('#GraficaTemp').hide();
+    $('#GraficaOxi').hide();
+    $('#GraficaBpm').show();
+    this.graficaBpm();
   }
 
 }

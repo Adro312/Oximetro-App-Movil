@@ -97,4 +97,30 @@ export class ResultadosPage implements OnInit {
     this.router.navigate(['tabs/home']);
   }
 
+  help() {
+    Swal.fire({
+      title: 'Información',
+      text: `
+        En esta sección se muestran los 
+        datos obtenidos de los sensores.
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  screenShoot() {
+    Swal.fire({
+      title: 'Screenshot',
+      text: `
+        Boton para tomar ss, favor de buscar
+        una libreria que lo haga :).
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
 }
