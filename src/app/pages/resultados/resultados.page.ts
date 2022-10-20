@@ -115,7 +115,7 @@ export class ResultadosPage implements OnInit {
       title: 'Screenshot',
       text: `
         Boton para tomar ss, favor de buscar
-        una libreria que lo haga :).
+        una libreria que lo haga  :).
       `,
       icon: 'info',
       confirmButtonColor: '#2dd36f',
