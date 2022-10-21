@@ -10,5 +10,19 @@ ion-toolbar {
 }
 
 .text {
-  color: #000;
+  color: rgb(71, 96, 115);
+  margin: 30px;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 50%;
+  height: 50%;
+  margin: 0 auto;
+  display: block;
 }

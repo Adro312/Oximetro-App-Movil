@@ -43,7 +43,7 @@ export class GraficasPage implements OnInit {
       this.showSplash = false;
       $('#container').show();
       $('#header').show();
-    }, 5000);
+    }, 3000);
 
     this.showTemp();
 
