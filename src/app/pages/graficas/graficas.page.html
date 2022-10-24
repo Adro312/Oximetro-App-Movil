@@ -52,6 +52,19 @@
         </div>
       </ion-card>
     </div>
+    <ion-card color="transparent">
+      <ion-segment class="labelsContainer" value="dia">
+        <ion-segment-button (click)="datosDia();" value="dia">
+          <ion-label>Día</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="datosMes();" value="mes">
+          <ion-label>Mes</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="datosAnio();" value="anio">
+          <ion-label>Año</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-card>
     <div></div>
   </div>
 </ion-content>

@@ -22,6 +22,8 @@ export class GraficasPage implements OnInit {
   message = '';
   tip = '';
 
+  nuevosLabels = [];
+
   constructor() { }
 
   ngOnInit() {
@@ -46,7 +48,69 @@ export class GraficasPage implements OnInit {
     }, 3000);
 
     this.showTemp();
+    this.arrayLabels(null);
+  }
 
+  datosPor( tipo: 'dia' | 'mes' | 'año' ) {
+    let barras;
+
+    switch (tipo) {
+      case 'dia':
+        barras = ['Lu','Ma','Mi','Ju','Vi','Sa','Do'];
+        break;
+      case 'mes':
+        barras = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        break;
+      case 'año':
+        barras = ['2021','2022'];
+        break;
+    }
+
+    return barras;
+
+  }
+
+  arrayLabels( labels: any[] ) {
+    if (labels === null) {
+      this.nuevosLabels = ['Lu','Ma','Mi','Ju','Vi','Sa','Do'];
+      console.log("normales", this.nuevosLabels);
+      this.showTemp();
+      return this.nuevosLabels;
+    }
+    this.nuevosLabels = labels
+    console.log("nuevos", this.nuevosLabels);
+    return this.nuevosLabels;
+  }
+
+  
+
+  datosDia() {
+    // this.datosPor( 'dia' );
+    console.log(this.datosPor( 'dia' ));
+    let labels = this.datosPor( 'dia' );
+
+    // console.log(labels);
+    this.arrayLabels(labels);
+    
+    this.showTemp();
+  }
+  
+  datosMes() {
+    // this.datosPor( 'mes' );
+    console.log(this.datosPor( 'mes' ));
+    let labels = this.datosPor( 'mes' );
+
+    this.arrayLabels(labels);
+    this.showTemp();
+  }
+
+  datosAnio() {
+    // this.datosPor( 'año' );
+    console.log(this.datosPor( 'año' ));
+    let labels = this.datosPor( 'año' );
+
+    this.arrayLabels(labels);
+    this.showTemp();
   }
 
   graficaTemperatura() {
@@ -58,10 +122,11 @@ export class GraficasPage implements OnInit {
     this.myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
+        // labels: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
+        labels: this.nuevosLabels,
         datasets: [{
           label: '',
-          data: [30, 36, 35, 31, 37, 33, 32],
+          data: [30, 36, 35, 31, 37, 33, 32, 30, 36, 35, 31, 37],
           backgroundColor: [
             'rgb(0, 172, 200, 0.2)',
             'rgb(149, 214, 0, 0.2)',
