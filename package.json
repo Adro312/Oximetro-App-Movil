@@ -1,7 +1,7 @@
 {
-  "name": "sw17_contenedores",
+  "name": "OxiCare",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Daniel Ramirez & Uriel Loaiza",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
