@@ -9,10 +9,10 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'graficas',
+        path: 'registros',
         loadChildren: () =>
-          import('../../pages/graficas/graficas.module').then(
-            (m) => m.GraficasPageModule
+          import('../../pages/registros/registros.module').then(
+            (m) => m.RegistrosPageModule
           ),
       },
       {

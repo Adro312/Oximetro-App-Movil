@@ -1,0 +1,227 @@
+<ion-header id="header">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Registros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
+
+  <div id="container">
+
+    <ion-progress-bar id="progressBar" type="indeterminate"></ion-progress-bar>
+
+    <div class="nombreDatos">
+      <div class="nombreDato">
+        SpO2
+      </div>
+      <div class="nombreDato">
+        Temp
+      </div>
+      <div class="nombreDato">
+        BPM
+      </div>
+      <div class="nombreDato">
+        Hora
+      </div>
+    </div>
+
+    <div class="ultimoRegistro">
+      <div class="containerUltimoRegistro">
+        <span class="textUltimoRegistro">Último Registro</span>
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="registro">
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          100%
+  
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          37°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          80
+        </div>
+        <div class="hora">
+          3:00 PM
+        </div>
+      </div>
+    </div>
+
+    <div class="containerBuscarPorFecha">
+      <div class="containerTextBuscarRegistro">
+        <span class="textBuscarRegistro">Buscar Registros</span>
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="buscarPorFecha">
+        <ion-input
+          value="{{ date | date: 'dd-MMM-yyyy' }}"
+          id="date"
+          class="ion-text-center input"
+          readonly="true"
+          placeholder="Fecha"
+        ></ion-input>
+        <ion-popover trigger="date" size="cover">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              [(ngModel)]="date"
+              (ionChange)="hola();"
+              [showDefaultButtons]="true"
+              doneText="Aceptar"
+              cancelText="Cancelar"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </div>
+    </div>
+
+    <!-- <div class="containerPromedios">
+      <div class="containerTextPromedios">
+        <span class="textPromedios">Promedios</span>
+      </div>
+      
+      <div class="bpmTemp">
+        <div class="dataPromedio bpm">
+          <div class="data">
+            <span class="name">Rítmo Cardiaco</span>
+            <span class="value">80 bpm</span>
+          </div>
+        </div>
+        <div class="dataPromedio temp">
+          <div class="data">
+            <span class="name">Temperatura</span>
+            <span class="value">35° C</span>
+          </div>
+        </div>
+      </div>
+      <div class="containerSp02">
+        <div class="dataPromedio spo2">
+          <div class="data">
+            <span class="name">Nivel de Oxígeno en la Sangre</span>
+            <span class="value">97 %</span>
+          </div>
+        </div>
+      </div>
+      <div class="icon">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+    </div> -->
+
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <div slot="header" class="containerTextPromedios" (click)="accordion();">
+          <span class="textPromedios">Promedios</span>
+          <ion-icon id="flechaAccordion" name="caret-down-outline"></ion-icon>
+        </div>
+        <div class="ion-padding" slot="content">
+
+          <div class="containerPromedios">
+            <div class="bpmTemp">
+              <div class="dataPromedio bpm">
+                <div class="data">
+                  <span class="name">Rítmo Cardiaco</span>
+                  <span class="value">80 bpm</span>
+                </div>
+              </div>
+              <div class="dataPromedio temp">
+                <div class="data">
+                  <span class="name">Temperatura</span>
+                  <span class="value">35° C</span>
+                </div>
+              </div>
+            </div>
+            <div class="containerSp02">
+              <div class="dataPromedio spo2">
+                <div class="data">
+                  <span class="name">Nivel de Oxígeno en la Sangre</span>
+                  <span class="value">97 %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <div class="registrosPorFecha">
+      <div class="registro">
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          100%
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          37°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          80
+        </div>
+        <div class="hora">
+          3:00 PM
+        </div>
+      </div>
+      <div class="registro">
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          100%
+  
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          37°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          80
+        </div>
+        <div class="hora">
+          3:00 PM
+        </div>
+      </div>
+      <!-- <div class="registro">
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          100%
+  
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          37°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          80
+        </div>
+        <div class="hora">
+          3:00 PM
+        </div>
+      </div>
+      <div class="registro">
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          100%
+  
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          37°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          80
+        </div>
+        <div class="hora">
+          3:00 PM
+        </div>
+      </div> -->
+    </div>
+    
+  </div>
+</ion-content>
