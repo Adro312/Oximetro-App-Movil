@@ -62,7 +62,7 @@ ion-datetime-button {
   border-radius: 15px;
   margin: 10px 10px 0 10px;
   box-shadow: 0 2px 15px -1px rgb(0, 0, 0, 0.2);
-
+  animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .containerTextBuscarRegistro {
@@ -93,6 +93,19 @@ ion-datetime-button {
   box-shadow: 0 2px 5px -1px rgb(0, 0, 0, 0.2);
 }
 
+.registroPorFecha {
+  // background: linear-gradient(145deg, rgba(0, 172, 200, 0.2) 0%, rgba(149, 214, 0, 0.2) 100%);
+  background: rgba(179, 79, 197, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  border-radius: 15px;
+  margin: 10px 10px 10px 10px;
+  box-shadow: 0 2px 10px -1px rgb(0, 0, 0, 0.2);
+	animation: fade-in-left 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
 .registro {
   // background: linear-gradient(145deg, rgba(0, 172, 200, 0.1) 0%, rgba(149, 214, 0, 0.1) 100%);
   background: rgba(0, 172, 200, 0.1);
@@ -103,7 +116,7 @@ ion-datetime-button {
   border-radius: 15px;
   margin: 10px 10px 0 10px;
   box-shadow: 0 2px 5px -1px rgb(0, 0, 0, 0.2);
-
+  animation: fade-in-top 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .datos {
@@ -152,19 +165,21 @@ ion-datetime-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 15px 0 20px;
+  margin: 10px 15px 5px 20px;
 }
 
 .bpmTemp {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fade-in-top 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .containerSp02 {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fade-in-top 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .dataPromedio {
@@ -178,7 +193,7 @@ ion-datetime-button {
 }
 
 .bpm {
-  background: rgba(179, 79, 197, 0.1);
+  background-color: rgba(149, 214, 0, 0.1);
   margin: 10px 5px 10px 10px;
 }
 
@@ -208,4 +223,49 @@ ion-datetime-button {
 .name {
   font-size: 14px;
 }
+
+@keyframes fade-in-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-left {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-right {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 

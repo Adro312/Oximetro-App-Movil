@@ -33,31 +33,18 @@ export class ResultadosPage implements OnInit {
 
   async cargarDatos() {
 
-    this.showSplash = true;
-    this.message = 'Cargando Datos...';
-    this.tip = 'Sabias que la velocidad más alta registrada para un estornudo es de 165 km/h ?';
-    $('#container').hide();
-    $('#header1').hide();
-    // $('#tabs').hide();
+    
 
     this.restService.ejecutar_get('API/getAllData', {}).
     subscribe( resultado => {
       this.resultados = resultado;
-      // loading.dismiss();
 
       this.showSplash = false;
-      $('#container').show();
-      $('#header1').show();
-      // $('#tabs').show();
+     
 
       console.log(resultado);
     }, error => {
-      // loading.dismiss();
-
-      this.showSplash = false;
-      $('#container').show();
-      $('#header1').show();
-      // $('#tabs').show();
+      
 
       console.log(error);
     });
@@ -94,6 +81,44 @@ export class ResultadosPage implements OnInit {
   }
 
   terminar() {
+
+    this.restService.ejecutar_get('API/changeStatusDataSendTo0', {}).
+    subscribe( resultado => {
+
+      console.log(resultado);
+
+      this.restService.ejecutar_get('API/changeStatusOxiDesconect', {}).
+      subscribe( resultado => {
+
+        console.log(resultado);
+
+
+        }, error => {
+
+        this.restService.mostrar_toast(
+          'Falla de conexión!',
+          'danger',
+          'Error en el servidor!',
+          'top',
+          1000
+        );
+
+        console.log('Error en el servidor:', error);
+      });
+
+    }, error => {
+
+      this.restService.mostrar_toast(
+        'Falla de conexión!',
+        'danger',
+        'Error en el servidor!',
+        'top',
+        1000
+      );
+
+      console.log('Error en el servidor:', error);
+    });
+
     this.router.navigate(['tabs/home']);
   }
 

@@ -1,5 +1,15 @@
 <ion-header id="header">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="screenShoot();">
+        <ion-icon name="aperture-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="help();">
+        <ion-icon name="help-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">Registros</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,8 +20,10 @@
 
   <div id="container">
 
+    <!-- ------------ Progress Bar ------------ -->
     <ion-progress-bar id="progressBar" type="indeterminate"></ion-progress-bar>
 
+    <!-- ------------ Nombre de los Datos ------------ -->
     <div class="nombreDatos">
       <div class="nombreDato">
         SpO2
@@ -27,35 +39,36 @@
       </div>
     </div>
 
+    <!-- ------------ Ultimos Datos Registrados ------------ -->
     <div class="ultimoRegistro">
       <div class="containerUltimoRegistro">
         <span class="textUltimoRegistro">Último Registro</span>
-        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-icon name="information-circle-outline" (click)="infoUltimoRegistro();" ></ion-icon>
       </div>
       <div class="registro">
         <div class="datos">
           <ion-icon name="water-outline"></ion-icon>
-          100%
-  
+          {{ ultimoRegistro.oxygen }}%
         </div>
         <div class="datos">
           <ion-icon name="thermometer-outline"></ion-icon>
-          37°C
+          {{ ultimoRegistro.temperature }}°C
         </div>
         <div class="datos">
           <ion-icon name="heart-outline"></ion-icon>
-          80
+          {{ ultimoRegistro.heart_rate }}
         </div>
         <div class="hora">
-          3:00 PM
+          {{ ultimoRegistro.Hour }}
         </div>
       </div>
     </div>
 
+    <!-- ------------ Input para buscar Datos por Fecha ------------ -->
     <div class="containerBuscarPorFecha">
       <div class="containerTextBuscarRegistro">
         <span class="textBuscarRegistro">Buscar Registros</span>
-        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-icon name="information-circle-outline" (click)="infoBuscarPorRegistro();" ></ion-icon>
       </div>
       <div class="buscarPorFecha">
         <ion-input
@@ -70,7 +83,7 @@
             <ion-datetime
               presentation="date"
               [(ngModel)]="date"
-              (ionChange)="hola();"
+              (ionChange)="fecha();"
               [showDefaultButtons]="true"
               doneText="Aceptar"
               cancelText="Cancelar"
@@ -80,43 +93,35 @@
       </div>
     </div>
 
-    <!-- <div class="containerPromedios">
-      <div class="containerTextPromedios">
-        <span class="textPromedios">Promedios</span>
-      </div>
-      
-      <div class="bpmTemp">
-        <div class="dataPromedio bpm">
-          <div class="data">
-            <span class="name">Rítmo Cardiaco</span>
-            <span class="value">80 bpm</span>
-          </div>
-        </div>
-        <div class="dataPromedio temp">
-          <div class="data">
-            <span class="name">Temperatura</span>
-            <span class="value">35° C</span>
-          </div>
-        </div>
-      </div>
-      <div class="containerSp02">
-        <div class="dataPromedio spo2">
-          <div class="data">
-            <span class="name">Nivel de Oxígeno en la Sangre</span>
-            <span class="value">97 %</span>
-          </div>
-        </div>
-      </div>
-      <div class="icon">
-        <ion-icon name="chevron-down-outline"></ion-icon>
-      </div>
-    </div> -->
+    <!-- ------------ Datos buscados por Fecha ------------ -->
+    <div *ngIf="statusRegistro === 'OK'" id="registroPorFechaContainer">
+      <div class="registroPorFecha" *ngFor="let rf of registroFecha">
 
-    <ion-accordion-group>
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          {{ rf.oxygen }}%
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          {{ rf.temperature }}°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          {{ rf.heart_rate }}
+        </div>
+        <div class="hora">
+          {{ rf.Hour }}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ------------ Accordion de Promedios de los datos por Fecha ------------ -->
+    <ion-accordion-group *ngIf="statusRegistro === 'OK'">
       <ion-accordion value="first">
-        <div slot="header" class="containerTextPromedios" (click)="accordion();">
+        <div slot="header" class="containerTextPromedios" (click)="accordionPromedios();">
           <span class="textPromedios">Promedios</span>
-          <ion-icon id="flechaAccordion" name="caret-down-outline"></ion-icon>
+          <ion-icon id="flechaAccordion1" name="caret-down-outline"></ion-icon>
         </div>
         <div class="ion-padding" slot="content">
 
@@ -125,13 +130,13 @@
               <div class="dataPromedio bpm">
                 <div class="data">
                   <span class="name">Rítmo Cardiaco</span>
-                  <span class="value">80 bpm</span>
+                  <span class="value">{{ promedios.promedioBpm }} bpm</span>
                 </div>
               </div>
               <div class="dataPromedio temp">
                 <div class="data">
                   <span class="name">Temperatura</span>
-                  <span class="value">35° C</span>
+                  <span class="value">{{ promedios.promedioTemp }}° C</span>
                 </div>
               </div>
             </div>
@@ -139,7 +144,7 @@
               <div class="dataPromedio spo2">
                 <div class="data">
                   <span class="name">Nivel de Oxígeno en la Sangre</span>
-                  <span class="value">97 %</span>
+                  <span class="value">{{ promedios.promedioOxy }} %</span>
                 </div>
               </div>
             </div>
@@ -149,79 +154,41 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <div class="registrosPorFecha">
-      <div class="registro">
-        <div class="datos">
-          <ion-icon name="water-outline"></ion-icon>
-          100%
+    <!-- ------------ Accordion de Todos los Datos ------------ -->
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <div slot="header" class="containerTextPromedios" (click)="accordionAllData();">
+          <span class="textPromedios">Todos los Registros</span>
+          <ion-icon id="flechaAccordion2" name="caret-down-outline"></ion-icon>
         </div>
-        <div class="datos">
-          <ion-icon name="thermometer-outline"></ion-icon>
-          37°C
+        <div class="ion-padding" slot="content">
+
+          <div class="" *ngFor="let reg of registros">
+
+            <div class="registro">
+              <div class="datos">
+                <ion-icon name="water-outline"></ion-icon>
+                {{ reg.oxygen }}%
+              </div>
+              <div class="datos">
+                <ion-icon name="thermometer-outline"></ion-icon>
+                {{ reg.temperature }}°C
+              </div>
+              <div class="datos">
+                <ion-icon name="heart-outline"></ion-icon>
+                {{ reg.heart_rate }}
+              </div>
+              <div class="hora">
+                {{ reg.Hour }}
+              </div>
+            </div>
+      
+          </div>
+
         </div>
-        <div class="datos">
-          <ion-icon name="heart-outline"></ion-icon>
-          80
-        </div>
-        <div class="hora">
-          3:00 PM
-        </div>
-      </div>
-      <div class="registro">
-        <div class="datos">
-          <ion-icon name="water-outline"></ion-icon>
-          100%
-  
-        </div>
-        <div class="datos">
-          <ion-icon name="thermometer-outline"></ion-icon>
-          37°C
-        </div>
-        <div class="datos">
-          <ion-icon name="heart-outline"></ion-icon>
-          80
-        </div>
-        <div class="hora">
-          3:00 PM
-        </div>
-      </div>
-      <!-- <div class="registro">
-        <div class="datos">
-          <ion-icon name="water-outline"></ion-icon>
-          100%
-  
-        </div>
-        <div class="datos">
-          <ion-icon name="thermometer-outline"></ion-icon>
-          37°C
-        </div>
-        <div class="datos">
-          <ion-icon name="heart-outline"></ion-icon>
-          80
-        </div>
-        <div class="hora">
-          3:00 PM
-        </div>
-      </div>
-      <div class="registro">
-        <div class="datos">
-          <ion-icon name="water-outline"></ion-icon>
-          100%
-  
-        </div>
-        <div class="datos">
-          <ion-icon name="thermometer-outline"></ion-icon>
-          37°C
-        </div>
-        <div class="datos">
-          <ion-icon name="heart-outline"></ion-icon>
-          80
-        </div>
-        <div class="hora">
-          3:00 PM
-        </div>
-      </div> -->
-    </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
     
   </div>
 </ion-content>

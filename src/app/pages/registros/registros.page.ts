@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
+import { RestService } from '../../services/rest.service';
 
 @Component({
   selector: 'app-registros',
@@ -9,20 +10,34 @@ import * as $ from 'jquery';
 })
 export class RegistrosPage implements OnInit {
 
-
   showSplash = false;
   message = '';
   tip = '';
 
   date = '';
 
+  registros = [];
 
-  constructor() { }
+  ultimoRegistro = [];
+
+  registroFecha = [];
+
+  statusRegistro = '';
+
+  promedios = {
+    promedioTemp : 0,
+    promedioOxy : 0,
+    promedioBpm : 0
+  }
+
+  constructor(
+    private restService: RestService,
+  ) { }
 
   ngOnInit() {
     
   }
-
+  // Función para mostrar datos curiosos al azar
   randomTip() {
     const tips = [
       'El hueso más grande es la pelvis o hueso de la cadera. De hecho, está formado por seis huesos firmemente unidos entre sí.',
@@ -73,8 +88,16 @@ export class RegistrosPage implements OnInit {
     return tips[random];
   }
 
+  // Función que se ejecuta al entrar a la screen
   ionViewWillEnter() {
-    // Aqui se mostrara el loader y se ocultara provisionalmente hasta que se haga la peticion a la base de datos
+    this.getAllData();
+    $('#header').hide();
+    $('#container').hide();
+  }
+
+  // Función para motrar el loader por que la llamada a la API es muy rapida y no alcanza a mostrarse
+  loadingScreen() {
+    // Aun falta hacer pruebas del tiempo de carga en movil, pero por ahora el loader durara 2 segundos
     this.showSplash = true;
     this.message = 'Cargando datos...';
     this.tip = this.randomTip();
@@ -82,39 +105,253 @@ export class RegistrosPage implements OnInit {
     $('#header').hide();
     $('#progressBar').hide();
 
-    // Despues de 3 segundos el loader se ocultara
+    // Despues de 2 segundos el loader se ocultara
     setTimeout(() => {
       this.showSplash = false;
       $('#container').show();
       $('#header').show();
-    }, 1000);
-    
+    }, 2000);
   }
 
-  hola() {
-    console.log('Fecha 1:', this.date );
+  // Función para obtener todos los registros
+  async getAllData() {
 
+    // Se llama a la función del loader
+    this.loadingScreen();
+
+    // Se llama a la función que obtiene el último registro
+    this.getLatestRegister();
+
+    this.restService.ejecutar_get('API/getAllData', {}).
+    subscribe( resultado => {
+
+      if (!resultado.data) {
+        // Si no hay registros en la base de datos
+        this.restService.mostrar_toast(
+          'Error!',
+          'danger',
+          'Aún no hay lecturas registradas!',
+          'bottom',
+          1000
+        );
+      } else {
+        // Si hay registros en la base de datos
+        this.restService.mostrar_toast(
+          'Éxito!',
+          'success',
+          'Datos cargados correctamente!',
+          'top',
+          1000
+        );
+      }
+      
+      this.registros = resultado.data;
+      console.log('Todos los registros: ', resultado);
+
+    }, error => {
+
+      this.restService.mostrar_toast(
+        'Falla de conexión!',
+        'danger',
+        'Error al cargar todos los datos!',
+        'top',
+        1000
+      );
+
+      console.log('Error al cargar todos los datos:', error);
+    });
+  }
+
+  // Función para obtener el último registro
+  async getLatestRegister() {
+    
+    this.restService.ejecutar_get('API/getLatestRegister', {}).
+    subscribe( resultado => {
+
+      if (!resultado.data) {
+        this.restService.mostrar_toast(
+          'Error!',
+          'danger',
+          'Aún no hay lecturas registradas!',
+          'bottom',
+          1000
+        );
+      } else {
+        this.restService.mostrar_toast(
+          'Éxito!',
+          'success',
+          'Última lectura cargada correctamente!',
+          'top',
+          1000
+        );
+      }
+
+      this.ultimoRegistro = resultado.data;
+      console.log('Ultimo Registro: ', resultado);
+    }, error => {
+
+      this.restService.mostrar_toast(
+        'Falla de conexión!',
+        'danger',
+        'Error al cargar la última lectura!',
+        'top',
+        1000
+      );
+
+      console.log('Error al cargar el último dato registrado:', error);
+    });
+  }
+
+
+  async fecha() {
+
+    // La fecha ingresada por el usuario la guardanmos en una variable y eliminamos la hora
     var dateFormat = this.date.split('T')[0]; 
-    console.log('Fecha 2:', dateFormat);
 
     // El progress bar se mostrara mientras se hace la peticion de datos y se escondera cuando lleguen
     $('#progressBar').show();
+    $('registroPorFechaContainer').hide();
 
     setTimeout(() => {
       $('#progressBar').hide();
-    }, 3000);
+      $('registroPorFechaContainer').show();
+    }, 2000);
+
+    this.restService.subida_ficheros_y_datos('API/getDataByDate', {date:dateFormat}).
+    subscribe( resultado => {
+
+      // Guardamos el mensaje del estatus para verificar si hay datos o no con la fecha ingresada
+      this.statusRegistro = resultado.msg;
+      this.registroFecha = resultado.data;
+
+      if (!resultado.data) {
+        this.restService.mostrar_toast(
+          'Error!',
+          'danger',
+          'No hay lecturas registradas con la fecha seleccionada!',
+          'bottom',
+          1000
+        );
+      } else {
+        this.restService.mostrar_toast(
+          'Éxito!',
+          'success',
+          'Registros por fecha cargados correctamente!',
+          'bottom',
+          1000
+        );
+      }
+
+      console.log('Registros por Fecha: ', resultado);
+      
+    }, error => {
+
+      this.restService.mostrar_toast(
+        'Falla de conexión!',
+        'danger',
+        'Error al cargar registros por fecha!',
+        'bottom',
+        1000
+      );
+
+      console.log('Error al cargar registros por la fecha seleccionada:', error);
+    });
 
   }
 
-  accordion() {
-    // $('#abajo').hide();
-    // $('#arriba').show();
-    $('#flechaAccordion').toggleClass('rotate');
-    console.log('gira');
+  // Función para mostrar el promedio de los datos en el accordion
+  accordionPromedios() {
+    $('#flechaAccordion1').toggleClass('rotate');
+
+    // Variables donde guardaremos los datos de los registros
+    let numTemp = 0;
+    let numOxy = 0;
+    let numBpm = 0;
+
+    for(let i = 0; i < this.registroFecha.length; i++) {
+
+      // Sumamos los datos de los registros
+      let Temp = this.registroFecha[i].temperature;
+      numTemp += parseInt(Temp, 10);
+      let Oxy = this.registroFecha[i].oxygen;
+      numOxy += parseInt(Oxy, 10);
+      let Bpm = this.registroFecha[i].heart_rate;
+      numBpm += parseInt(Bpm, 10);
+
+      // Guardamos los datos sumados en un objeto global
+      this.promedios.promedioTemp = numTemp;
+      this.promedios.promedioOxy = numOxy;
+      this.promedios.promedioBpm = numBpm;
+
+    }
+
+    // Dividimos los datos sumados entre la cantidad de registros
+    let numDatos = this.registroFecha.length;
+
+    this.promedios.promedioTemp /= numDatos;
+    this.promedios.promedioOxy /= numDatos;
+    this.promedios.promedioBpm /= numDatos;    
+    
+    console.log(this.promedios);
     
   }
-  
 
+  accordionAllData() {
+    $('#flechaAccordion2').toggleClass('rotate');    
+  }
+
+  // Funciones para mostrar informacion cuando el usuario toque los iconos
+
+  // Iconos de las secciones
+
+  infoUltimoRegistro() {
+    Swal.fire({
+      title: 'Último Registro',
+      text: 'Esta es la última lectura hecha por el usuario. No olvides hacer por lo menos un análisis diario para poder tomar precauciones.',
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+  
+  infoBuscarPorRegistro() {
+    Swal.fire({
+      title: 'Buscar Registro',
+      text: 'Aquí puedes buscar lecturas por la fecha seleccionada. Se mostraran todos los registros hechos ese mismo día y un promedio de los datos.',
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  // Iconos del Header
+
+  help() {
+    Swal.fire({
+      title: 'Información',
+      text: `
+        En esta sección se muestra la última lectura registrada, 
+        puedes buscar registros por fecha, promedios de las lecturas 
+        y finalmente todos los registros hechos por el usuario.
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  screenShoot() {
+    Swal.fire({
+      title: 'Screenshot',
+      text: `
+        Boton para tomar ss, favor de buscar
+        una libreria que lo haga  :).
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
   
 
 }
