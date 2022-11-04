@@ -1,4 +1,6 @@
-
+#section {
+  background-color: #fff;
+}
 .section {
   height: 100%;
   width: 100%;
@@ -69,6 +71,7 @@
   color: #476073;
   font-weight: 600;
   text-align: center;
+  margin: 10px;
 }
 
 .section .spinner {

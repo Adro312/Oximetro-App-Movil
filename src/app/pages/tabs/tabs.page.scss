@@ -1,3 +1,7 @@
+ion-tab-bar {
+  --background: #fff;
+  border-color: rgb(0, 0, 0, 0.1);
+}
 
 ion-tab-button {
   --color: var(--primaryColor);
@@ -24,6 +28,7 @@ ion-tab-button {
   &.tab-selected ion-icon {
     font-size: 30px;
     animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    color: #fff;
   }
 
   @keyframes slide-top {

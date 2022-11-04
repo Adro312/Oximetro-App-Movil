@@ -1,13 +1,57 @@
-<ion-header>
+<ion-header id="header">
   <ion-toolbar>
-    <ion-title>graficas</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="screenShoot();">
+        <ion-icon name="aperture-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="help();">
+        <ion-icon name="help-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Gráficas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="chartContainer">
-    <canvas #barCanvas style="position: relative; height: 20vh; width: 40vw;"></canvas>
-  </div>
+  <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
 
-  <div></div>
+  <div id="container">
+    <ion-card color="transparent" class="segmentContainer">
+      <ion-segment class="iconsContainer" value="temp">
+        <ion-segment-button (click)="showTemp();" value="temp">
+          <ion-icon name="thermometer-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button (click)="showOxigen();" value="oxi">
+          <ion-icon name="water-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button (click)="showBpm();" value="bpm">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-card>
+    <div id="GraficaTemp">
+      <ion-card color="transparent">
+        <div class="chartContainer">
+          <canvas id="barTemp" width="400" height="400" ></canvas>
+        </div>
+      </ion-card>
+    </div>
+    <div class="" id="GraficaOxi">
+      <ion-card color="transparent">
+        <div class="chartContainer">
+          <canvas id="barOxi" width="400" height="400" ></canvas>
+        </div>
+      </ion-card>
+    </div>
+    <div class="" id="GraficaBpm">
+      <ion-card color="transparent">
+        <div class="chartContainer">
+          <canvas id="barBpm" width="400" height="400" ></canvas>
+        </div>
+      </ion-card>
+    </div>
+    <div></div>
+  </div>
 </ion-content>

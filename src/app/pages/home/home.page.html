@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-content id="content" [fullscreen]="true">
 
   <app-loader [isLoader]="showSplash" [message]="message" [tip]="tip"></app-loader>
   
@@ -17,8 +17,9 @@
           <span class="care"> Care</span>
         </div>
       </div>
-      <div class="startButton" (click)="comenzar();">
-        <ion-icon name="play-circle-outline"></ion-icon>
+      <div class="startButton">
+        <ion-icon name="play-circle-outline" (click)="comenzar();" id="buttonPlay"></ion-icon>
+        <ion-icon name="close-circle-outline" (click)="error();" id="buttonError"></ion-icon>
       </div>
       <span class="stateSensors">{{ stateSensors }}</span>
       <!-- <h6 class="stateSensors">¡Sensores Listos!</h6> -->
@@ -29,36 +30,38 @@
         <div class="headerExam">
           <h5 class="ultimosExamenes">Ultimos Examenes</h5>
           <div class="iconHeaderExam">
-            <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+            <ion-icon name="arrow-down-circle-outline"></ion-icon>
           </div>
         </div>
-        <div class="exam">
+        <div class="exam" *ngFor="let ltr of latestTwoRegisters" >
           <div class="examText">
-            <div class="fecha">
-              Martes 15 de Agosto
+            <div class="fechaCompleta">
+              <div class="fecha">
+                {{ ltr.fecha }}
+              </div> 
+              <div class="hora">
+                {{ ltr.hora }}
+              </div>
             </div>
-            <div class="datos">
-              Niveles de Oxigeno al 100%
+            <div class="containerDatos">
+              <div class="datos">
+                <ion-icon name="water-outline"></ion-icon>
+                {{ ltr.datos.oxygen }}%
+              </div>
+              <div class="datos">
+                <ion-icon name="thermometer-outline"></ion-icon>
+                {{ ltr.datos.temperature }}°C
+              </div>
+              <div class="datos">
+                <ion-icon name="heart-outline"></ion-icon>
+                {{ ltr.datos.heart_rate }}bpm
+              </div>
+              
             </div>
-          </div>
-          <div class="detalles">
-            <ion-icon name="menu-outline"></ion-icon>
+            
           </div>
         </div>
 
-        <div class="exam">
-          <div class="examText">
-            <div class="fecha">
-              Jueves 8 de Septiembre
-            </div>
-            <div class="datos">
-              Niveles de Oxigeno al 100%
-            </div>
-          </div>
-          <div class="detalles">
-            <ion-icon name="menu-outline"></ion-icon>
-          </div>
-        </div>
       </div>
     </div>
 
