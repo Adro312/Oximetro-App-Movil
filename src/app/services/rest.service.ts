@@ -11,8 +11,8 @@ import { LoadingController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class RestService {
-  url_api = 'http://localhost/Oximetro-API/';
-  // url_api = 'http://192.168.13.242/Oximetro-API/';
+  // url_api = 'http://localhost/Oximetro-API/';
+  url_api = 'http://192.168.1.111/Oximetro-API/';
   private httpClientFiles: HttpClient;
 
   constructor(

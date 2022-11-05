@@ -34,9 +34,14 @@ export class HomePage implements OnInit {
   constructor(
     private restService: RestService,
     private router: Router,
-  ) {}
+  ) {
+    this.statusSensor();
+    this.getLatestTwoRegister();
+  }
 
   ngOnInit() {
+    this.statusSensor();
+    this.getLatestTwoRegister();
   }
 
   delay(ms: number) {
@@ -100,12 +105,6 @@ export class HomePage implements OnInit {
     this.message = 'Cargando datos...';
     this.tip = this.randomTip();
     $('#container').hide();
-
-    // Despues de 2 segundos el loader se ocultara
-    setTimeout(() => {
-      this.showSplash = false;
-      $('#container').show();
-    }, 2000);
   }
 
   // Funciones que se ejecutaran al entrar a la screen
@@ -116,8 +115,6 @@ export class HomePage implements OnInit {
 
   // Aquí se obtiene el status del Oximetro, si es 0 no te dejará darle click al boton de play
   statusSensor() {
-    let band = true;
-    while (band) {
       this.restService.ejecutar_get('API/getStatusOxi', {}).
       subscribe( resultado => {
   
@@ -164,124 +161,20 @@ export class HomePage implements OnInit {
   
         console.log('Error en el servidor:', error);
       });
-      band = false;
-    }
   }
 
   // Función para empezar a recibir los datos del oximetro, no se por que tantos get y change status, help!!
-  async comenzar() {
+  comenzar() {
+    let band = true;
 
     this.loadingScreen();
 
     this.restService.ejecutar_get('API/changeStatusApp', {}).
-    subscribe( resultado => {
-
+    subscribe( async resultado => {
       console.log(resultado);
-
-      this.restService.ejecutar_get('API/getStatusApp', {}).
-      subscribe( resultado => {
-
-        console.log(resultado);
-
-        this.restService.ejecutar_get('API/changeStatusOxi', {}).
-        subscribe( resultado => {
-
-          console.log(resultado);
-          
-          this.restService.ejecutar_get('API/getStatusOxi', {}).
-          subscribe( resultado => {
-
-            console.log(resultado);
-            
-            this.restService.ejecutar_get('API/changeStatusDataSend', {}).
-            subscribe( resultado => {
-      
-              console.log(resultado);
-              
-              this.restService.ejecutar_get('API/getStatusDataSend', {}).
-              subscribe( resultado => {
-      
-                console.log(resultado);
-                
-                if (resultado.data_send_status == 0) {
-                  this.restService.mostrar_toast(
-                    'Error!',
-                    'danger',
-                    'No se pudieron enviar los datos!',
-                    'top',
-                    1000
-                  );
-                } else {
-                  this.router.navigate(['resultados']);
-                }
-      
-              }, error => {
-      
-                this.restService.mostrar_toast(
-                  'Falla de conexión!',
-                  'danger',
-                  'Error en el servidor!',
-                  'top',
-                  1000
-                );
-      
-                console.log('Error en el servidor:', error);
-              });
-      
-            }, error => {
-      
-              this.restService.mostrar_toast(
-                'Falla de conexión!',
-                'danger',
-                'Error en el servidor!',
-                'top',
-                1000
-              );
-      
-              console.log('Error en el servidor:', error);
-            });
-
-          }, error => {
-
-            this.restService.mostrar_toast(
-              'Falla de conexión!',
-              'danger',
-              'Error en el servidor!',
-              'top',
-              1000
-            );
-
-            console.log('Error en el servidor:', error);
-          });
-
-        }, error => {
-
-          this.restService.mostrar_toast(
-            'Falla de conexión!',
-            'danger',
-            'Error en el servidor!',
-            'top',
-            1000
-          );
-
-          console.log('Error en el servidor:', error);
-        });
-
-      }, error => {
-
-        this.restService.mostrar_toast(
-          'Falla de conexión!',
-          'danger',
-          'Error en el servidor!',
-          'top',
-          1000
-        );
-
-        console.log('Error en el servidor:', error);
-      });
-      
     }, error => {
-
+      this.showSplash = false;
+      $('#container').show();
       this.restService.mostrar_toast(
         'Falla de conexión!',
         'danger',
@@ -289,10 +182,34 @@ export class HomePage implements OnInit {
         'top',
         1000
       );
-
       console.log('Error en el servidor:', error);
     });
 
+    let dataSend = () => {
+      this.restService.ejecutar_get('API/getStatusDataSend', {}).
+      subscribe( async resultado2 => {
+        console.log("Status: " + resultado2);
+        if (resultado2 == 1){
+          this.showSplash = false;
+          $('#container').show();
+          this.router.navigate(['resultados']);
+        } else {
+          await this.delay(5000);
+          dataSend();
+        }
+      }, error => {
+        this.restService.mostrar_toast(
+          'Falla de conexión!',
+          'danger',
+          'Error en el servidor!',
+          'top',
+          1000
+        );
+        console.log('Error en el servidor:', error);
+      });
+    }
+
+    dataSend();
   }
 
   // Función por si el usuario le da click al boton de error, se le mostrara una alerta con las opciones de reintentar la conexion o cancelar
