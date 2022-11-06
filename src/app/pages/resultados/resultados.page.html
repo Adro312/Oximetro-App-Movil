@@ -20,38 +20,34 @@
 
   <div id="container">
     <div class="iconHeader">
-      <ion-icon name="sad-outline"></ion-icon>
-      <!-- <ion-icon name="happy-outline"></ion-icon> -->
+      <ion-icon id="iconSad" name="sad-outline" (click)="sad();"></ion-icon>
+      <ion-icon id="iconHappy" name="happy-outline" (click)="happy();"></ion-icon>
     </div>
-    <!-- <div class="cardContainer" *ngFor="let res of resultados"> -->
     <div class="cardContainer">
       <div class="resultsContainer">
-        <span class="results">Datos</span>
+        <span class="results">Lectura del Sensor</span>
       </div>
-      <div class="dataContainer">
+      <div class="dataContainer bpm">
         <div class="data">
-          <span class="value">97%</span>
-          <!-- <span class="value">{{res.dht11_humedad}}</span> -->
+          <span class="value">{{ resultados.oxygen }}%</span>
           <span class="name">Sp02</span>
           <div>
             <ion-icon (click)="infoSp02();" name="information-circle-outline"></ion-icon>
           </div>
         </div>
       </div>
-      <div class="dataContainer">
+      <div class="dataContainer spo2">
         <div class="data">
-          <span class="value">80</span>
-          <!-- <span class="value">{{res.dht11_temperatura}}</span> -->
+          <span class="value">{{ resultados.heart_rate }}</span>
           <span class="name">BPM</span>
           <div>
             <ion-icon (click)="infoBPM();" name="information-circle-outline"></ion-icon>
           </div>
         </div>
       </div>
-      <div class="dataContainer">
+      <div class="dataContainer temp">
         <div class="data">
-          <span class="value">35°</span>
-          <!-- <span class="value">{{res.dht11_temperatura}}</span> -->
+          <span class="value">{{ temp }}°C</span>
           <span class="name">Temperatura</span>
           <div>
             <ion-icon (click)="infoTemp();" name="information-circle-outline"></ion-icon>
@@ -59,16 +55,7 @@
         </div>
       </div>
     </div>
-    <!-- <ion-list inset="true" *ngFor="let res of resultados">
-      <ion-item>
-        <ion-label>
-          <h1>{{res.fecha_hora_registro}}</h1>
-          <h2 style="color: orange;">Temperatura: {{res.dht11_temperatura}}</h2>
-          <h2 style="color: cadetblue;">Humedad: {{res.dht11_humedad}}</h2>
-        </ion-label>
-      </ion-item>
-      <br>
-    </ion-list> -->
+    
     <div (click)="terminar();" class="finishContainer">
       <span class="finish">Terminar</span>
     </div>

@@ -268,6 +268,10 @@ export class RegistrosPage implements OnInit {
     let numOxy = 0;
     let numBpm = 0;
 
+    let promTemp = 0;
+    let promOxy = 0;
+    let promBpm = 0;
+
     for(let i = 0; i < this.registroFecha.length; i++) {
 
       // Sumamos los datos de los registros
@@ -278,19 +282,29 @@ export class RegistrosPage implements OnInit {
       let Bpm = this.registroFecha[i].heart_rate;
       numBpm += parseInt(Bpm, 10);
 
-      // Guardamos los datos sumados en un objeto global
-      this.promedios.promedioTemp = numTemp;
-      this.promedios.promedioOxy = numOxy;
-      this.promedios.promedioBpm = numBpm;
+      // Guardamos los datos sumados en una variable local
+      promTemp = numTemp;
+      promOxy = numOxy;
+      promBpm = numBpm;
 
     }
 
     // Dividimos los datos sumados entre la cantidad de registros
     let numDatos = this.registroFecha.length;
 
-    this.promedios.promedioTemp /= numDatos;
-    this.promedios.promedioOxy /= numDatos;
-    this.promedios.promedioBpm /= numDatos;    
+    promTemp /= numDatos;
+    promOxy /= numDatos;
+    promBpm /= numDatos;
+
+    // Convertimos los datos a decimales y los cortamos a al segundo decimal
+    let promTempFixed = parseFloat(promTemp.toFixed(2));
+    let promOxyFixed = parseFloat(promOxy.toFixed(2));
+    let promBpmFixed = parseFloat(promBpm.toFixed(2));
+
+    // Asignamos los datos a las variables globales
+    this.promedios.promedioTemp = promTempFixed;
+    this.promedios.promedioOxy = promOxyFixed;
+    this.promedios.promedioBpm = promBpmFixed;
     
     console.log(this.promedios);
     
