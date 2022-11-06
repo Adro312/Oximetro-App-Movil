@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class ResultadosPage implements OnInit {
 
   resultados = [];
+  temp: number = 0;
 
   showSplash = false;
   message = '';
@@ -29,24 +30,78 @@ export class ResultadosPage implements OnInit {
 
   ionViewWillEnter() {
     this.cargarDatos();
+    $('#iconHappy').hide();
+    $('#iconSad').hide();
   }
 
   async cargarDatos() {
 
-    
-
-    this.restService.ejecutar_get('API/getAllData', {}).
+    this.restService.ejecutar_get('API/getLatestRegister', {}).
     subscribe( resultado => {
-      this.resultados = resultado;
 
-      this.showSplash = false;
-     
+      this.restService.mostrar_toast(
+        'Éxito!',
+        'success',
+        'Se ha terminado de escanear!',
+        'top',
+        1000
+      );
+
+      this.resultados = resultado.data;
+
+      let temp = parseInt(resultado.data.temperature);
+      
+      this.temp = temp;
+
+      if (temp > 37) {
+        $('#iconSad').show();
+        $('#iconHappy').hide();
+      } else {
+        $('#iconSad').hide();
+        $('#iconHappy').show();
+      }
 
       console.log(resultado);
     }, error => {
       
+      this.restService.mostrar_toast(
+        'Falla de conexión!',
+        'danger',
+        'Error en el servidor!',
+        'top',
+        1000
+      );
 
       console.log(error);
+    });
+  }
+
+  sad() {
+    Swal.fire({
+      title: 'Precaución',
+      text: `
+        Favor de acudir con un medico.
+        Tu temperatura esta por encima del promedio.
+        Te recomendamos tomar agua y descansar.
+        Si te duele la cabeza puedes tomar un paracetamol de 500mg o una aspirina.
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
+    });
+  }
+
+  happy() {
+    Swal.fire({
+      title: 'Todo bien',
+      text: `
+        Tus datos se encuentran dentro del rango normal.
+        Te recomendamos seguir cuidandote.
+        No olvides tomar agua y descansar.
+      `,
+      icon: 'info',
+      confirmButtonColor: '#2dd36f',
+      heightAuto: false
     });
   }
 

@@ -93,29 +93,6 @@
       </div>
     </div>
 
-    <!-- ------------ Datos buscados por Fecha ------------ -->
-    <div *ngIf="statusRegistro === 'OK'" id="registroPorFechaContainer">
-      <div class="registroPorFecha" *ngFor="let rf of registroFecha">
-
-        <div class="datos">
-          <ion-icon name="water-outline"></ion-icon>
-          {{ rf.oxygen }}%
-        </div>
-        <div class="datos">
-          <ion-icon name="thermometer-outline"></ion-icon>
-          {{ rf.temperature }}°C
-        </div>
-        <div class="datos">
-          <ion-icon name="heart-outline"></ion-icon>
-          {{ rf.heart_rate }}
-        </div>
-        <div class="hora">
-          {{ rf.Hour }}
-        </div>
-
-      </div>
-    </div>
-
     <!-- ------------ Accordion de Promedios de los datos por Fecha ------------ -->
     <ion-accordion-group *ngIf="statusRegistro === 'OK'">
       <ion-accordion value="first">
@@ -129,7 +106,7 @@
             <div class="bpmTemp">
               <div class="dataPromedio bpm">
                 <div class="data">
-                  <span class="name">Rítmo Cardiaco</span>
+                  <span class="name bpmName">Rítmo Cardiaco</span>
                   <span class="value">{{ promedios.promedioBpm }} bpm</span>
                 </div>
               </div>
@@ -153,6 +130,29 @@
         </div>
       </ion-accordion>
     </ion-accordion-group>
+
+    <!-- ------------ Datos buscados por Fecha ------------ -->
+    <div *ngIf="statusRegistro === 'OK'" id="registroPorFechaContainer">
+      <div class="registroPorFecha" *ngFor="let rf of registroFecha">
+
+        <div class="datos">
+          <ion-icon name="water-outline"></ion-icon>
+          {{ rf.oxygen }}%
+        </div>
+        <div class="datos">
+          <ion-icon name="thermometer-outline"></ion-icon>
+          {{ rf.temperature }}°C
+        </div>
+        <div class="datos">
+          <ion-icon name="heart-outline"></ion-icon>
+          {{ rf.heart_rate }}
+        </div>
+        <div class="hora">
+          {{ rf.Hour }}
+        </div>
+
+      </div>
+    </div>
 
     <!-- ------------ Accordion de Todos los Datos ------------ -->
     <ion-accordion-group>

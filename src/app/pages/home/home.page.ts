@@ -210,6 +210,7 @@ export class HomePage implements OnInit {
     }
 
     dataSend();
+
   }
 
   // Función por si el usuario le da click al boton de error, se le mostrara una alerta con las opciones de reintentar la conexion o cancelar
