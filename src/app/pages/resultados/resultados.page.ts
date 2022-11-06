@@ -53,7 +53,7 @@ export class ResultadosPage implements OnInit {
       
       this.temp = temp;
 
-      if (temp > 36) {
+      if (temp > 37) {
         $('#iconSad').show();
         $('#iconHappy').hide();
       } else {
