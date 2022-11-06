@@ -210,7 +210,6 @@ export class HomePage implements OnInit {
     }
 
     dataSend();
-    this.router.navigate(['resultados']);
 
   }
 
